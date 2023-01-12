@@ -5,6 +5,7 @@ import {
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -46,16 +47,15 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore();
 
 export const createUserDocument = async (userAuth) => {
+  if (!userAuth) return;
+
   // see if there is an existing document reference
   // database, collection then unique identifier for the data
   // give me the user document in this database, inside the users collection with this uid
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
 
   // get the user document
   const userData = await getDoc(userDocRef);
-  console.log(userData);
-  console.log(userData.exists());
 
   // check if user data exists, if not create a user.
   if (!userData.exists()) {
@@ -63,7 +63,7 @@ export const createUserDocument = async (userAuth) => {
     const { displayName, email } = userAuth;
     // set a date to be the current date
     const createdAt = new Date();
-
+    // if not, use setDoc to with data from userAuth in the collection
     try {
       await setDoc(userDocRef, {
         displayName,
@@ -74,7 +74,13 @@ export const createUserDocument = async (userAuth) => {
       console.log(e.message);
     }
   }
-  // if not, use setDoc to with data from userAuth in the collection
+
   return userDocRef;
   // if true, return userDocRef
+};
+
+export const createAccountWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

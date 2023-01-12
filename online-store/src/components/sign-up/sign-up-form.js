@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+import {
+  createAccountWithEmailAndPassword,
+  createUserDocument,
+} from "../../utils/firebase/firebase.utils";
+
 const initialFormField = {
   displayName: "",
   email: "",
@@ -11,9 +16,37 @@ const SignUpForm = () => {
   // build a state function with the default value set as the initialFormField object above
 
   const [formField, setFormField] = useState(initialFormField);
-
+  console.log(formField);
   // destructure the formfield object to use them in a function later
   const { displayName, email, password, confirmPassword } = formField;
+
+  const resetForm = () => {
+    setFormField(initialFormField);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("passwords do not match");
+      return;
+    }
+
+    try {
+      // returns the create with email and password method
+      const { user } = await createAccountWithEmailAndPassword(email, password);
+      // add the user to the database
+      await createUserDocument(user, { displayName });
+      resetForm();
+    } catch (err) {
+      // show error when the email is already in the database
+      if (err.code === "auth/email-already-in-use") {
+        alert("Error: Username or email already in use");
+      } else {
+        console.log("Error creating user", err.message);
+      }
+    }
+  };
 
   const handleChange = (e) => {
     // gets the name from e.target.name
@@ -28,7 +61,7 @@ const SignUpForm = () => {
   return (
     <div>
       <h1>Sign up with email and password</h1>
-      <form onSubmit>
+      <form onSubmit={handleSubmit}>
         <label>Username</label>
         <input
           type="text"

@@ -8,18 +8,6 @@ import SignUpForm from "../../components/sign-up/sign-up-form";
 // auth is a memory bank tracking authenticating states/firebase instances
 
 const SignIn = () => {
-  //   useEffect(() => {
-  //     redirectData();
-  //   }, []);
-
-  //   const redirectData = async () => {
-  //     const response = await getRedirectResult(auth);
-
-  //     if (response) {
-  //       const userDocRef = await createUserDocument(response.user);
-  //     }
-  //   };
-
   const logGoogleUser = async () => {
     //destructured from the web response data
     const { user } = await signInWithGooglePopup();
