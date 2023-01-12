@@ -3,16 +3,37 @@ import {
   createUserDocument,
 } from "../../utils/firebase/firebase.utils";
 
+import SignUpForm from "../../components/sign-up/sign-up-form";
+
+// auth is a memory bank tracking authenticating states/firebase instances
+
 const SignIn = () => {
+  //   useEffect(() => {
+  //     redirectData();
+  //   }, []);
+
+  //   const redirectData = async () => {
+  //     const response = await getRedirectResult(auth);
+
+  //     if (response) {
+  //       const userDocRef = await createUserDocument(response.user);
+  //     }
+  //   };
+
   const logGoogleUser = async () => {
     //destructured from the web response data
     const { user } = await signInWithGooglePopup();
-    createUserDocument(user);
+    const userDocRef = await createUserDocument(user);
   };
+
+  // the web is getting redirected so the state aren't getting logged into our website
+  // we went from google redirect to our website
+
   return (
     <div>
       <h1>Sign In Page</h1>
       <button onClick={logGoogleUser}>Sign in with Google</button>
+      <SignUpForm />
     </div>
   );
 };

@@ -26,17 +26,22 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // google auth provider is a class
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 // set parameters on the provider whenever the user interacts
 // with the app, they will always select an account
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 // google auth provider is a class that we get from the class. connected to google
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+// sign in with google pop up
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+// sign in with google redirect
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
