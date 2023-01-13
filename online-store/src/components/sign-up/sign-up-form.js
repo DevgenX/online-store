@@ -1,9 +1,14 @@
 import { useState } from "react";
 
+import SignInput from "../form-input/form-input";
+import Button from "../button/button-component";
+
 import {
   createAccountWithEmailAndPassword,
   createUserDocument,
 } from "../../utils/firebase/firebase.utils";
+
+import "./sign-up-form.scss";
 
 const initialFormField = {
   displayName: "",
@@ -16,7 +21,6 @@ const SignUpForm = () => {
   // build a state function with the default value set as the initialFormField object above
 
   const [formField, setFormField] = useState(initialFormField);
-  console.log(formField);
   // destructure the formfield object to use them in a function later
   const { displayName, email, password, confirmPassword } = formField;
 
@@ -59,11 +63,12 @@ const SignUpForm = () => {
     setFormField({ ...formField, [name]: value });
   };
   return (
-    <div>
-      <h1>Sign up with email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with email and password</span>
       <form onSubmit={handleSubmit}>
-        <label>Username</label>
-        <input
+        <SignInput
+          label="Username"
           type="text"
           required
           onChange={handleChange}
@@ -71,8 +76,8 @@ const SignUpForm = () => {
           value={displayName}
         />
 
-        <label>Email</label>
-        <input
+        <SignInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
@@ -80,8 +85,8 @@ const SignUpForm = () => {
           value={email}
         />
 
-        <label>Password</label>
-        <input
+        <SignInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
@@ -89,15 +94,15 @@ const SignUpForm = () => {
           value={password}
         />
 
-        <label>Confirm Password</label>
-        <input
+        <SignInput
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">Sign up</button>
+        <Button type="submit">SIGN UP</Button>
       </form>
     </div>
   );

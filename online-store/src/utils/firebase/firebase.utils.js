@@ -46,7 +46,7 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
-export const createUserDocument = async (userAuth) => {
+export const createUserDocument = async (userAuth, addInfo = {}) => {
   if (!userAuth) return;
 
   // see if there is an existing document reference
@@ -69,6 +69,7 @@ export const createUserDocument = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...addInfo,
       });
     } catch (e) {
       console.log(e.message);
