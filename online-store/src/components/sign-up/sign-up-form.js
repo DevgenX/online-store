@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import SignInput from "../form-input/form-input";
 import Button from "../button/button-component";
@@ -7,6 +7,8 @@ import {
   createAccountWithEmailAndPassword,
   createUserDocument,
 } from "../../utils/firebase/firebase.utils";
+
+import { UserContext } from "../../contexts/user.context";
 
 import "./sign-up-form.scss";
 
@@ -24,6 +26,8 @@ const SignUpForm = () => {
   // destructure the formfield object to use them in a function later
   const { displayName, email, password, confirmPassword } = formField;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetForm = () => {
     setFormField(initialFormField);
   };
@@ -40,6 +44,9 @@ const SignUpForm = () => {
       // returns the create with email and password method
       const { user } = await createAccountWithEmailAndPassword(email, password);
       // add the user to the database
+
+      setCurrentUser(user);
+
       await createUserDocument(user, { displayName });
       resetForm();
     } catch (err) {
