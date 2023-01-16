@@ -1,5 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
+import {
+  onAuthStateChangedListener,
+  createUserDocument,
+} from "../utils/firebase/firebase.utils";
 // as the actual value to access
 export const UserContext = createContext({
   currentUser: null,
@@ -11,6 +15,18 @@ export const UserContext = createContext({
 // from app, we access it in the sign-up form
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    // store currentUser when auth changed value is, Sign out = null, sign in = user object
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocument(user);
+      }
+      setCurrentUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
 
   // createContext exposes the useState to wherever it will be used
   const value = { currentUser, setCurrentUser };

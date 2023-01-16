@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -65,7 +66,7 @@ export const createUserDocument = async (userAuth, addInfo = {}) => {
     const { displayName, email } = userAuth;
     // set a date to be the current date
     const createdAt = new Date();
-    // if not, use setDoc to with data from userAuth in the collection
+    // if not, use setDoc to data from userAuth in the collection
     try {
       await setDoc(userDocRef, {
         displayName,
@@ -97,4 +98,7 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 };
 
 // sign out the user
-export const signOutUser = () => signOut(auth);
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
