@@ -6,8 +6,6 @@ const ButtonTypes = {
   inverted: "inverted",
 };
 
-<React.Fragment></React.Fragment>;
-
 const Button = ({ children, buttonType, ...otherProps }) => {
   return (
     <button

@@ -2,14 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
 import Authentication from "./routes/authentication/authentication";
+import Shop from "./routes/shop/shop-component";
 
-const Shop = () => {
-  return (
-    <div>
-      <h2>I am a shop</h2>
-    </div>
-  );
-};
 // element is responsible for rendering
 // the index matches the parent navigation element with empty path
 // it renders the index along with the navigation
