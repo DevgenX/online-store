@@ -1,7 +1,7 @@
 import SignUpForm from "../../components/sign-up/sign-up-form";
 import SignInForm from "../../components/sign-in-form/sign-in-form";
 
-import "./authentication.styles.scss";
+import { AuthenticationContainer } from "./authentication.styles.jsx";
 // auth is a memory bank tracking authenticating states/firebase instances
 
 const Authentication = () => {
@@ -9,10 +9,10 @@ const Authentication = () => {
   // we went from google redirect to our website
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer>
       <SignInForm />
       <SignUpForm />
-    </div>
+    </AuthenticationContainer>
   );
 };
 
