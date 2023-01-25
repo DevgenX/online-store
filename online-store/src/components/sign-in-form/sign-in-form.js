@@ -6,7 +6,6 @@ import Button, { BUTTON_TYPES } from "../button/button-component";
 import {
   signInWithGooglePopup,
   signInUserWithEmailAndPassword,
-  createUserDocument,
 } from "../../utils/firebase/firebase.utils";
 
 import "./sign-in-form.scss";
@@ -35,7 +34,7 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const { user } = await signInUserWithEmailAndPassword(email, password);
+      await signInUserWithEmailAndPassword(email, password);
 
       resetForm();
     } catch (error) {
