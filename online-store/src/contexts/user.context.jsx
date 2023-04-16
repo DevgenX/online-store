@@ -1,4 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useReducer } from "react";
+
+import { createAction } from "../utils/reducer/reducer.utils";
 
 import {
   onAuthStateChangedListener,
@@ -10,12 +12,36 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
-// export context and provider
-// passed-in as a prop to the app component through wrapping
-// from app, we access it in the sign-up form
-export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+export const USER_ACTION_TYPES = {
+  SET_CURRENT_USER: "SET_CURRENT_USER",
+};
 
+const userReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: payload,
+      };
+    default:
+      throw new Error(`Action ${type} doesn't exist`);
+  }
+};
+
+const initialState = {
+  currentUser: null,
+};
+
+export const UserProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(userReducer, initialState);
+
+  const { currentUser } = state;
+
+  const setCurrentUser = (user) => {
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user));
+  };
   useEffect(() => {
     // store currentUser when auth changed value is, Sign out = null, sign in = user object
     const unsubscribe = onAuthStateChangedListener((user) => {

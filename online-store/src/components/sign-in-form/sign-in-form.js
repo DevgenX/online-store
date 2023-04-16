@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import SignInput from "../form-input/form-input";
 import Button, { BUTTON_TYPES } from "../button/button-component";
+import { useNavigate } from "react-router";
 
 import {
   signInWithGooglePopup,
@@ -16,6 +17,7 @@ const initialFormField = {
 };
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   // build a state function with the default value set as the initialFormField object above
 
   const [formField, setFormField] = useState(initialFormField);
@@ -29,13 +31,14 @@ const SignInForm = () => {
   const signInWithGoogle = async () => {
     //destructured from the web response data
     await signInWithGooglePopup();
+    navigate("/");
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await signInUserWithEmailAndPassword(email, password);
-
+      navigate("/");
       resetForm();
     } catch (error) {
       switch (error.code) {
