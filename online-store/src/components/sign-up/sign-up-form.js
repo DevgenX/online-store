@@ -1,14 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import SignInput from "../form-input/form-input";
 import Button from "../button/button-component";
 
-import {
-  createAccountWithEmailAndPassword,
-  createUserDocument,
-} from "../../utils/firebase/firebase.utils";
-
 import { SignUpContainer } from "./sign-up-form.styles";
+import { signUpStart } from "../../store/user/user.action";
 
 const initialFormField = {
   displayName: "",
@@ -24,6 +22,9 @@ const SignUpForm = () => {
   // destructure the formfield object to use them in a function later
   const { displayName, email, password, confirmPassword } = formField;
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const resetForm = () => {
     setFormField(initialFormField);
   };
@@ -37,11 +38,8 @@ const SignUpForm = () => {
     }
 
     try {
-      // returns the create with email and password method
-      const { user } = await createAccountWithEmailAndPassword(email, password);
-      // add the user to the database
-
-      await createUserDocument(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
+      navigate("/");
       resetForm();
     } catch (err) {
       // show error when the email is already in the database

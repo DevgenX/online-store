@@ -6,6 +6,7 @@ import {
 } from "./product-card.styles.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { addItemToCart } from "../../store/cart/cart.action.js";
 import { selectCartItems } from "../../store/cart/cart.selector.js";
 

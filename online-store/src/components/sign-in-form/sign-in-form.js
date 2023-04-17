@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import SignInput from "../form-input/form-input";
 import Button, { BUTTON_TYPES } from "../button/button-component";
 import { useNavigate } from "react-router";
 
 import {
-  signInWithGooglePopup,
-  signInUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user.action";
 
 import { SignInContainer, ButtonContainer } from "./sign-in-form.jsx";
 
@@ -18,6 +19,8 @@ const initialFormField = {
 
 const SignInForm = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   // build a state function with the default value set as the initialFormField object above
 
   const [formField, setFormField] = useState(initialFormField);
@@ -30,14 +33,14 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     //destructured from the web response data
-    await signInWithGooglePopup();
+    dispatch(googleSignInStart());
     navigate("/");
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await signInUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       navigate("/");
       resetForm();
     } catch (error) {
