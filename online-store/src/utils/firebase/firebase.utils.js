@@ -22,10 +22,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
 const firebaseConfig2 = {
   apiKey: process.env.REACT_APP_API_KEY,
 
@@ -45,7 +41,6 @@ const firebaseConfig2 = {
 // // Initialize Firebase
 initializeApp(firebaseConfig2);
 
-// google auth provider is a class
 const googleProvider = new GoogleAuthProvider();
 
 // set parameters on the provider whenever the user interacts
@@ -56,14 +51,13 @@ googleProvider.setCustomParameters({
 
 // google auth provider is a class that we get from the class. connected to google
 export const auth = getAuth();
-// sign in with google pop up
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
-// sign in with google redirect
+
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
-// GET DB ACCESS
 export const db = getFirestore();
 
 export const addCollectionAndDocuments = async (
