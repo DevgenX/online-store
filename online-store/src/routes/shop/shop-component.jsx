@@ -12,6 +12,7 @@ const Shop = () => {
 
   useEffect(() => {
     dispatch(fetchCategoriesStart());
+    // eslint-disable-next-line
   }, []);
   return (
     <Routes>
