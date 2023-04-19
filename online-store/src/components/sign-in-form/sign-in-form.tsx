@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
 import SignInput from "../form-input/form-input";
@@ -10,7 +10,7 @@ import {
   emailSignInStart,
 } from "../../store/user/user.action";
 
-import { SignInContainer, ButtonContainer } from "./sign-in-form.jsx";
+import { SignInContainer, ButtonContainer } from "./sign-in-form.styles";
 
 const initialFormField = {
   email: "",
@@ -21,10 +21,9 @@ const SignInForm = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  // build a state function with the default value set as the initialFormField object above
 
   const [formField, setFormField] = useState(initialFormField);
-  // destructure the formfield object to use them in a function later
+
   const { email, password } = formField;
 
   const resetForm = () => {
@@ -32,39 +31,22 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    //destructured from the web response data
     dispatch(googleSignInStart());
     navigate("/");
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       dispatch(emailSignInStart(email, password));
       navigate("/");
       resetForm();
     } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("Incorrect password or email");
-          break;
-        case "auth/user-not-found":
-          alert("Email not found");
-          break;
-        default:
-          console.log(error);
-      }
+      console.log(error);
     }
   };
 
-  const handleChange = (e) => {
-    // gets the name from e.target.name
-    // gets the value from e.target.value
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // spread in the object using spread parameter then update
-    // update the appropriate field using bracket notation
-    // assign the value of it to be the value from e.target
     setFormField({ ...formField, [name]: value });
   };
   return (

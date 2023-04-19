@@ -1,7 +1,7 @@
 import SignUpForm from "../../components/sign-up/sign-up-form";
 import SignInForm from "../../components/sign-in-form/sign-in-form";
 
-import { AuthenticationContainer } from "./authentication.styles.jsx";
+import { AuthenticationContainer } from "./authentication.styles";
 // auth is a memory bank tracking authenticating states/firebase instances
 
 const Authentication = () => {

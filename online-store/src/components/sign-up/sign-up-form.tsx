@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -16,10 +18,8 @@ const initialFormField = {
 };
 
 const SignUpForm = () => {
-  // build a state function with the default value set as the initialFormField object above
-
   const [formField, setFormField] = useState(initialFormField);
-  // destructure the formfield object to use them in a function later
+
   const { displayName, email, password, confirmPassword } = formField;
 
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const SignUpForm = () => {
     setFormField(initialFormField);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -42,23 +42,16 @@ const SignUpForm = () => {
       navigate("/");
       resetForm();
     } catch (err) {
-      // show error when the email is already in the database
-      if (err.code === "auth/email-already-in-use") {
+      if ((err as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
         alert("Error: Username or email already in use");
       } else {
-        console.log("Error creating user", err.message);
+        console.log("Error creating user", err);
       }
     }
   };
 
-  const handleChange = (e) => {
-    // gets the name from e.target.name
-    // gets the value from e.target.value
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // spread in the object using spread parameter then update
-    // update the appropriate field using bracket notation
-    // assign the value of it to be the value from e.target
     setFormField({ ...formField, [name]: value });
   };
   return (

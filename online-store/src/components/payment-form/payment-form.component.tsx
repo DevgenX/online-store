@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 
 import {
   FormContainer,
@@ -12,7 +12,7 @@ import PaymentModal from "./payment-modal";
 const PaymentForm = () => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleModal = (e) => {
+  const handleModal = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowModal(!showModal);
   };
