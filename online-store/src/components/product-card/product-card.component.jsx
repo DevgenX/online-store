@@ -3,12 +3,12 @@ import {
   Footer,
   Name,
   Price,
-} from "./product-card.styles.jsx";
+} from "./product-card.styles";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { addItemToCart } from "../../store/cart/cart.action.js";
-import { selectCartItems } from "../../store/cart/cart.selector.js";
+import { addItemToCart } from "../../store/cart/cart.action";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 import Button, { BUTTON_TYPES } from "../button/button-component";
 const ProductCard = ({ product }) => {

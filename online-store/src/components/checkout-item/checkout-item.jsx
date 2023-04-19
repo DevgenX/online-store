@@ -6,7 +6,7 @@ import {
   Arrow,
   Value,
   RemoveButton,
-} from "./checkout-item.styles.jsx";
+} from "./checkout-item.styles";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,9 +14,9 @@ import {
   addItemToCart,
   clearItemFromCart,
   removeItemToCart,
-} from "../../store/cart/cart.action.js";
+} from "../../store/cart/cart.action";
 
-import { selectCartItems } from "../../store/cart/cart.selector.js";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 const CheckoutItem = ({ cartItem }) => {
   const cartItems = useSelector(selectCartItems);
