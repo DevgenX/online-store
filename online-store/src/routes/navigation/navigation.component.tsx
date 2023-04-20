@@ -18,10 +18,8 @@ import {
   NavLinks,
   NavLink,
 } from "./navigation.styles";
-// fragment is useful if you don't want to render specific html elements
 
 const Navigation = () => {
-  // get the currentUser
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const dispatch = useDispatch();

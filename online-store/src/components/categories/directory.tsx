@@ -1,10 +1,17 @@
 import DirectoryItem from "../directory-item/directory-item";
 import { DirectoryContainer } from "./directory.styles.jsx";
-
+import { Key } from "react";
 // categories is equal to { categories } = this.props
 // map through the array of objects then call CategoryItem
 
-const categories = [
+export type DirectoryCategory = {
+  id: Key;
+  title: string;
+  imageUrl: string;
+  route: string;
+};
+
+const categories: DirectoryCategory[] = [
   {
     id: 1,
     title: "hats",
