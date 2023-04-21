@@ -9,7 +9,6 @@ import { setIsCartOpen } from "../../store/cart/cart.action";
 
 import { ShoppingIcon, CartIconContainer, ItemCount } from "./cart-icon.styles";
 
-// cart icon and toggle button
 const CartIcon = () => {
   const dispatch = useDispatch();
 
