@@ -20,7 +20,7 @@ const CartDropdown = () => {
 
   const goToCheckOutHandler = useCallback(() => {
     navigate("/checkout");
-  }, [navigate]);
+  }, []);
 
   return (
     <CartDropdownContainer>

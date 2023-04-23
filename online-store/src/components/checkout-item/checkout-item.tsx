@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 import {
   CheckOutItemContainer,
   ImageContainer,
@@ -18,7 +20,13 @@ import {
 
 import { selectCartItems } from "../../store/cart/cart.selector";
 
-const CheckoutItem = ({ cartItem }) => {
+import { CartItem as TCartItem } from "../../store/cart/cart.types";
+
+type CartItemProps = {
+  cartItem: TCartItem;
+};
+
+const CheckoutItem: FC<CartItemProps> = ({ cartItem }) => {
   const cartItems = useSelector(selectCartItems);
 
   const dispatch = useDispatch();
