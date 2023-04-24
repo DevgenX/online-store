@@ -5,9 +5,9 @@ import {
   BackGroundImage,
   Body,
   DirectoryItemContainer,
-} from "./directory-item.styles.jsx";
+} from "./directory-item.styles";
 
-import { DirectoryCategory } from "../categories/directory.js";
+import { DirectoryCategory } from "../categories/directory";
 
 type DirectoryCategoryProps = {
   category: DirectoryCategory;
